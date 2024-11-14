@@ -3,6 +3,8 @@
 Route module for the API
 """
 from os import getenv
+from typing import Tuple, Any
+
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
 from flask_cors import (CORS, cross_origin)
@@ -19,6 +21,12 @@ def not_found(error) -> str:
     """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
+
+
+@app.errorhandler(401)
+def unauthorized(error) -> tuple[Any, int]:
+    """Unauthorized handler"""
+    return jsonify({"error": "Unauthorized"}), 401
 
 
 if __name__ == "__main__":
