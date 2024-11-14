@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
+from crypt import methods
+
 from flask import jsonify, abort
 from api.v1.views import app_views
 
@@ -30,3 +32,9 @@ def stats() -> str:
 def unauthorized():
     """Raises a 401 error by using abort"""
     abort(401)
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden():
+    """Raises a 403 error by using abort"""
+    abort(403)
