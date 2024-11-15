@@ -16,13 +16,17 @@ class Auth:
         if path not in excluded_paths and f"{path}/" not in excluded_paths:
             return True
 
-        if path in excluded_paths or f"{path}/":
+        if path in excluded_paths or f"{path}/" in excluded_paths:
             return False
         return False
 
     def authorization_header(self, request=None) -> str:
         """Returns None"""
-        return None
+        if request is None:
+            return None
+        if not request.headers.get('Authorization'):
+            return None
+        return request.headers.get('Authorization')
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Returns None"""
